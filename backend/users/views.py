@@ -1,7 +1,13 @@
-from rest_framework import generics
-from .serializers import RegisterSerializer
-from rest_framework.permissions import AllowAny
+from rest_framework import generics, permissions
+from .serializers import UserSerializer
+from .models import User
 
-class RegisterView(generics.CreateAPIView):
-    serializer_class = RegisterSerializer
-    permission_classes = [AllowAny]
+# Get or update profile
+class ProfileView(generics.RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    # make it fetch only the logged-in user
+    def get_object(self):
+        return self.request.user
