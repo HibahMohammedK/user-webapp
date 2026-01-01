@@ -64,6 +64,17 @@ const authSlice = createSlice({
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
     },
+    updateAuthUser: (state, action) => {
+      if (!state.user) return;
+
+      state.user = {
+        ...state.user,
+        ...action.payload,
+      };
+
+      // keep localStorage in sync
+      localStorage.setItem("user", JSON.stringify(state.user));
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -94,6 +105,7 @@ const authSlice = createSlice({
           username: action.meta.arg.username,
           access: action.payload.access,
           refresh: action.payload.refresh,
+          is_staff: action.payload.is_staff,
         };
 
         // Update Redux state
@@ -112,6 +124,6 @@ const authSlice = createSlice({
 });
 
 // Export logout action
-export const { logout } = authSlice.actions;
+export const { logout, updateAuthUser } = authSlice.actions;
 
 export default authSlice.reducer;

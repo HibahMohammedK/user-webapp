@@ -2,10 +2,15 @@ import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../store/authSlice";
 import { useNavigate,Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; 
+import "./Register.css"
 
 const Register = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword2, setShowPassword2] = useState(false);
+
   const { loading, error } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
@@ -28,38 +33,42 @@ const Register = () => {
 
 
   return (
-    <>
+    <div className="register-page">
+    
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        onChange={handleChange}
-      />
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="password2"
-        placeholder="Confirm Password"
-        onChange={handleChange}
-      />
+      <h1>Sign Up</h1>
+      <h2>Create your account</h2>
+
+      <input type="text" name="username" placeholder="Username" onChange={handleChange} />
+      <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+      <div className="password-field">
+        <input
+          type={showPassword ? "text" : "password"}
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+        />
+        <span className="toggle-password" onClick={() => setShowPassword(prev => !prev)}>
+          {showPassword ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
+
+      <div className="password-field">
+        <input
+          type={showPassword2 ? "text" : "password"}
+          name="password2"
+          placeholder="Confirm Password"
+          onChange={handleChange}
+        />
+        <span className="toggle-password" onClick={() => setShowPassword2(prev => !prev)}>
+          {showPassword2 ? <FaEyeSlash /> : <FaEye />}
+        </span>
+      </div>
       <button type="submit">{loading ? "Loading..." : "Register"}</button>
       {error && <p>{JSON.stringify(error)}</p>}
     </form>
-    <Link to='/' ><button><span>Already have account </span> login </button></Link>
-    </>
- 
+    <Link to="/"><span>Already have an account? </span>Login</Link>
+  </div>
   );
 };
 

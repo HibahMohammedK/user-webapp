@@ -1,0 +1,142 @@
+/* Full page wrapper */
+.profile-page {
+  width: 100%;
+  min-height: 90vh;
+  background:  white;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Top navbar for Back and Logout buttons */
+.profile-topbar {
+  width: 95%;
+  max-width:1200px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+.nav-left{
+  margin-right: auto;
+  font-weight: 100px;
+}
+
+/* Navbar buttons */
+.topbar-btn {
+  background: #090909;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.topbar-btn:hover {
+  background: #3b3b3d;
+}
+
+/* White card */
+.profile-card {
+  width: 95%;
+  max-width: 850px;
+  background: #fff;
+  padding: 35px 45px;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Title */
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* Section Title */
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 30px 0 15px;
+}
+
+/* Profile Photo */
+.profile-photo-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+  border: 2px solid #ddd;
+}
+
+.upload-btn {
+  border: 1px solid #bbb;
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.upload-btn:hover {
+  background: #f0f0f0;
+}
+
+.upload-limit {
+  font-size: 12px;
+  color: #777;
+  margin-top: 4px;
+}
+
+/* Input fields */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Save button */
+.save-btn-wrapper {
+  text-align: right;
+}
+
+.save-btn {
+  background: #8383b9;
+  color: white;
+  border: none;
+  padding: 10px 26px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: #2e2e31;
+}
+
+/* Message */
+.message {
+  font-size: 14px;
+  color: green;
+  font-weight: 500;
+}

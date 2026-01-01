@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../store/authSlice";
 import { useNavigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; 
+import "./Login.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,6 +15,9 @@ const Login = () => {
     password: "",
   });
 
+  // ✅ New state for showing password
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -22,37 +27,50 @@ const Login = () => {
     dispatch(loginUser(formData));
   };
 
-
   useEffect(() => {
-    console.log("User:", user);
-    console.log("Access token:", localStorage.getItem("access_token"));
-
     if (user?.access) {
-      navigate("/home"); // navigate only when logged in
+      if (user?.is_staff) {
+        navigate("/adminhome");
+      } else {
+        navigate("/home");
+      }
     }
   }, [user, navigate]);
 
   return (
-    <>
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        onChange={handleChange}
-      />
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-        onChange={handleChange}
-      />
-      <button type="submit">{loading ? "Loading..." : "Login"}</button>
-      {error && <p>{JSON.stringify(error)}</p>}
-      {user && <p>Login successful!</p>}
-    </form>
-    <Link to='/register' ><button><span>Dont have an account  </span> signup </button></Link>
-    </>
+    <div className="login-page">
+      <div className="login-container">
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={handleChange}
+          />
+
+          {/* Password field with toggle */}
+          <div className="password-field">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+            />
+            <span className="toggle-password" onClick={() => setShowPassword(prev => !prev)}>
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <button type="submit">{loading ? "Loading..." : "Login"}</button>
+          {error && <p>{JSON.stringify(error)}</p>}
+          {user && <p className="success">sign up successful!</p>}
+        </form>
+        <Link to="/register">
+          <span>Don’t have an account?</span> Sign up
+        </Link>
+      </div>
+    </div>
   );
 };
 
