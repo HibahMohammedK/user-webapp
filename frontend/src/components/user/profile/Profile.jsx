@@ -69,7 +69,13 @@ const Profile = () => {
 
         setMessage("Profile updated successfully!");
       } catch (err) {
-        setMessage("Error updating profile.");
+         if (err?.username) {
+            setMessage(err.username[0]);
+          } else if (err?.email) {
+            setMessage(err.email[0]);
+          } else {
+            setMessage("Profile update failed.");
+          }
       } finally {
         setLoading(false);
       }

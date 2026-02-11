@@ -132,7 +132,7 @@ const userSlice = createSlice({
   name: "users",
   initialState: {
     users: [],
-    profile: null,   // ⭐ NEW
+    profile: null,   
     isLoading: false,
     error: null,
   },

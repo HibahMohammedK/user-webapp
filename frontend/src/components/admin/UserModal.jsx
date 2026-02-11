@@ -49,16 +49,20 @@ const UserModal = ({ mode, user = {}, onClose }) => {
     payload.password = formData.password;
   }
 
-  if (mode === "edit") {
-      await dispatch(updateUserThunk({ 
-        id: user.id, 
-        userData: payload    
-      }));
+  try {
+    if (mode === "edit") {
+      await dispatch(
+        updateUserThunk({ id: user.id, userData: payload })
+      ).unwrap();
     } else {
-      await dispatch(createUserThunk(payload));
+      await dispatch(createUserThunk(payload)).unwrap();
     }
 
-  onClose();
+    onClose(); // ✅ only close on success
+  } catch (err) {
+    // handle backend validation errors
+    setErrors(err);
+  }
 };
 
 
