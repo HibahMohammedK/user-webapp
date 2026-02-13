@@ -108,7 +108,7 @@ const Profile = () => {
             profileImage instanceof File
               ? URL.createObjectURL(profileImage)
               : profile?.profile_image
-                ? `${import.meta.env.VITE_API_URL}/media/${profile.profile_image}`
+                ? profile.profile_image
                 : defaultImage
           }
           alt="Profile"
