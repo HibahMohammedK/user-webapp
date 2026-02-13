@@ -67,6 +67,9 @@ const Profile = () => {
           profile_image: updatedProfile.profile_image,
         }));
 
+        // update local state for UI
+        setProfileImage(updatedProfile.profile_image);
+
         setMessage("Profile updated successfully!");
       } catch (err) {
          if (err?.username) {
