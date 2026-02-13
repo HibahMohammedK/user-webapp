@@ -42,10 +42,15 @@ const Home = () => {
         <div className="navbar-right">
           <div className="user-info">
             <img
-              src={profile?.profile_image || defaultImage}
+              src={
+                profile?.profile_image
+                  ? `${import.meta.env.VITE_API_URL}/media/${profile.profile_image}`
+                  : defaultImage
+              }
               alt="Profile"
               className="navbar-profile-img"
             />
+
             <span className="username">{user?.username || "Guest"}</span>
           </div>
 

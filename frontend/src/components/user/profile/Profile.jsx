@@ -103,12 +103,15 @@ const Profile = () => {
         <img
           src={
             profileImage instanceof File
-              ? URL.createObjectURL(profileImage) 
-              : profile?.profile_image || defaultImage
+              ? URL.createObjectURL(profileImage)
+              : profile?.profile_image
+                ? `${import.meta.env.VITE_API_URL}/media/${profile.profile_image}`
+                : defaultImage
           }
           alt="Profile"
           className="profile-photo"
         />
+
 
           <div>
             <label htmlFor="profileImage" className="upload-btn">
