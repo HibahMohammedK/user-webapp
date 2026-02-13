@@ -42,7 +42,11 @@ const Home = () => {
         <div className="navbar-right">
           <div className="user-info">
             <img
-              src={profile?.profile_image || defaultImage}
+              src={
+                profile?.profile_image?.startsWith("http")
+                  ? profile.profile_image
+                  : defaultImage
+              }
               alt="Profile"
               className="navbar-profile-img"
             />

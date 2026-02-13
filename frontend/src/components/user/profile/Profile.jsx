@@ -106,15 +106,14 @@ const Profile = () => {
         <img
           src={
             profileImage instanceof File
-              ? URL.createObjectURL(profileImage)
-              : profile?.profile_image
-                ? profile.profile_image
-                : defaultImage
+              ? URL.createObjectURL(profileImage) // local file preview
+              : profile?.profile_image?.startsWith("http")
+                ? profile.profile_image   // Cloudinary URL
+                : defaultImage            // fallback
           }
           alt="Profile"
           className="profile-photo"
         />
-
 
           <div>
             <label htmlFor="profileImage" className="upload-btn">
