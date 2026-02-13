@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const API_URL = "http://127.0.0.1:8000/api/adminpanel/users/";
-
+import api  from "../api/axios";
 // --------------------------------------------------------
 // 1️⃣ FETCH ALL USERS (ADMIN CRUD)
 // --------------------------------------------------------
@@ -10,10 +7,7 @@ export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("access_token");
-      const res = await axios.get(API_URL, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.get("/api/adminpanel/users/");
 
       if (Array.isArray(res.data)) return res.data;
       if (Array.isArray(res.data.results)) return res.data.results;
@@ -32,10 +26,7 @@ export const createUserThunk = createAsyncThunk(
   "users/createUser",
   async (userData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("access_token");
-      const res = await axios.post(API_URL, userData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.post("/api/adminpanel/users/", userData);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error creating user");
@@ -50,10 +41,7 @@ export const updateUserThunk = createAsyncThunk(
   "users/updateUser",
   async ({ id, userData }, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("access_token");
-      const res = await axios.put(`${API_URL}${id}/`, userData, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await api.put(`/api/adminpanel/users/${id}/`, userData);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error updating user");
@@ -68,10 +56,7 @@ export const deleteUserThunk = createAsyncThunk(
   "users/deleteUser",
   async (id, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("access_token");
-      await axios.delete(`${API_URL}${id}/`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await api.delete(`/api/adminpanel/users/${id}/`);
       return id;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error deleting user");
@@ -86,13 +71,7 @@ export const fetchProfileThunk = createAsyncThunk(
   "users/fetchProfile",
   async (_, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("access_token");
-      const res = await axios.get(
-        "http://127.0.0.1:8000/api/users/profile/",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const res = await api.get("/api/users/profile/");
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error fetching profile");
@@ -107,17 +86,7 @@ export const updateProfileThunk = createAsyncThunk(
   "users/updateProfile",
   async (formData, { rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("access_token");
-      const res = await axios.put(
-        "http://127.0.0.1:8000/api/users/profile/",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            // Remove Content-Type - let axios set it automatically for FormData
-          },
-        }
-      );
+      const res = await api.put("/api/users/profile/", formData);
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || "Error updating profile");

@@ -14,21 +14,37 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
 
-        {/* Admin routes */}
-      <Route
-        path="/adminhome"
-        element={
-          
-            <AdminHome />
-       
-        }
-      />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/adminhome"
+          element={
+            <ProtectedRoute adminOnly={true}>
+              <AdminHome />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
+
     </>
   )
 }
